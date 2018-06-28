@@ -1,9 +1,8 @@
-import sys, os
-import sqlite3
+import sys, os, re, sqlite3, textwrap
 from PIL import Image, ImageDraw, ImageFont
 from pathlib import Path
 from datetime import datetime
-import textwrap
+#import sopel.module
 
 class roleplay:
     def __init__(self):
@@ -13,7 +12,9 @@ class roleplay:
         self.getCharacters()
 
     def getCharacters(self):
-        self.curr.execute("SELECT * FROM char_main")
+        #MAIN DATA
+        self.curr.execute("SELECT * FROM char_main INNER JOIN abilities ON \
+            abilities.char_id = char_main.char_id")
         self.chars = []
         data = self.curr.fetchall()
         headers = list(map(lambda x: x[0], self.curr.description))
@@ -27,8 +28,19 @@ class roleplay:
 
     def makeCharacterSheet(self, character):
         #location tuples
-        locs = {"char_name": [(250,200),48],"alignment": [(812,190),14], \
-            "gender": [(770,230),20]}
+        locs = {"char_name": [(250,200),48],"alignment": [(822,192),14], \
+            "gender": [(770,230),20],"level": [(), 10],"race": [(1234,137),48]\
+            ,"class": [(1302,199),48],"xp": [(1550,196),20],"level": [(1555,231),20]}
+        #add ability locations
+        abilNames = ["strength","dexterity","constitution","intelligence","wisdom","charisma"]
+        startX = 495
+        startY = 357
+        yDelta = 40
+        xDelta = 100
+        for a in abilNames:
+            newSet = [(startX, startY), 24]
+            locs[a] = newSet
+            startY+=yDelta
         #get the character from the list
         selection = {}
         for a in self.chars:
@@ -47,18 +59,36 @@ class roleplay:
         for a in locs:
             col = (255,0,0)
             fnt = ImageFont.truetype(str(fontsPath), size=locs[a][1])
-            inText = selection[a]
+            inText = str(selection[a])
             if a == "alignment":
                 offset = 0
                 for line in inText.split():
                     d1.text((locs[a][0][0],locs[a][0][1]+offset), line, font=fnt, fill=col)
                     offset+=locs[a][1]
             else:
-                d1.text(locs[a][0],inText,font=fnt,fill=col)
+                d1.text(locs[a][0], inText, font=fnt, fill=col)
         genSheet1Path = genFolder / str(timeStamp+"-"+selection["char_name"]+"-sheet1.jpg")
         sheet1.save(genSheet1Path)
 
+    def printCharInfo(self, character):
+        #find char
+        char = ""
+        found = False
+        for a in self.chars:
+            found = bool(re.search(character,a["char_name"],re.IGNORECASE))
+            if found:
+                char = a
+        if not found:
+            return "No character found."
+        #format
+        outText = ""
+        for a in char:
+            if a != "char_id":
+                outText+=a
+                outText+=": "+str(char[a])
+                outText+="\n"
+        return outText
+
 #test
-x = roleplay()
-x.makeCharacterSheet("Justin Case")
-# INSERT INTO abilities(char_id, strength, dexterity, constitution, intelligence, wisdom, charisma) VALUES(1,10,10,10,10,10,10)
+#x = roleplay()
+#x.makeCharacterSheet("Justin Case")
