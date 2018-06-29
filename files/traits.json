@@ -1,0 +1,60 @@
+{
+  "dwarf_traits": [
+    {
+      "title": "SPEED 20 FEET (4 SQUARES)",
+      "desc": "Your speed is only 20 feet, but"
+    },
+    {
+      "title": "DARKVISION 60 FEET",
+      "desc": "You can see in the dark up to 60 feet. This works like normal vision, but it's only in shades of gray."
+    },
+    {
+      "title": "HATRED: +1 VS GOBLINS AND ORCS",
+      "dsec": "You get a +1 bonus on attack rolls against goblins an orcs because of your special training."
+    },
+    {
+      "title": "HARDY: +2 VS. POISON AND SPELLS",
+      "desc": "You get a +2 bonus on saving throws to resist poison, spells, and monster abilities that imitate spells."
+    },
+    {
+      "title": "WEAPON FAMILIARITY",
+      "desc": "You know how to use battleaces and warhammers, no matter what your class is."
+    }
+  ],
+  "elf_traits": [
+    {
+      "title": "SPEED 30 FEET (6 SQUARES)",
+      "desc": "Your normal speed is 30 feet. When wearing medium or heavy armor, your speed is reduced to just 20 feet (4 squares)"
+    },
+    {
+      "title": "LOW-LIGHT VISION",
+      "desc": "You can see twice as far as in dim light as a dwarf or a human."
+    },
+    {
+      "title": "ELVEN SLEEP IMMUNITY",
+      "desc": "you are immune to magic sleep attacks (like sleep spells)"
+    },
+    {
+      "title": "KEEN SENSES",
+      "desc": "Elves are good at spotting details. Write 2+ in the MISC MOD BOX for 'Perception Skill'"
+    },
+    {
+      "title": "WEAPON FAMILIARITY",
+      "desc": "You know how to use longbows, longswords, rapiers, and shortbows, no matter what your class is."
+    }
+  ],
+  "human_traits": [
+    {
+      "title": "SPEED 30 FEET (6 SQUARES)",
+      "desc": "Your normal speed is 30 feet. When wearing medium or heavy armor, your speed is reduced to just 20 feet (4 squares)."
+    },
+    {
+      "title": "BONUS FEAT",
+      "desc": "Humans have a knack for learning special tricks called feats. You start the game with an extra feat."
+    },
+    {
+      "title": "BONUS SKILL RANKS",
+      "desc": "Humans learn things easily. You get an extra skill rank at every level."
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-import sys, os, re, sqlite3, textwrap
+import sys, os, re, sqlite3, textwrap, json
 from PIL import Image, ImageDraw, ImageFont
 from pathlib import Path
 from datetime import datetime
@@ -6,10 +6,11 @@ from sopel import module
 
 class roleplay:
     def __init__(self):
-        dbPath = os.path.abspath("rp.db")
-        self.conn = sqlite3.connect(dbPath)
+        dbPath = Path("rp.db")
+        self.conn = sqlite3.connect(str(dbPath))
         self.curr = self.conn.cursor()
         self.getCharacters()
+        self.files_path = Path("files")
 
     def getCharacters(self):
         #MAIN DATA
@@ -91,13 +92,44 @@ class roleplay:
                 outText+="\n"
         return outText
 
+    def applyTraits(self, character):
+        #Load traits
+        traitsPath = self.files_path / "traits.json"
+        with open(traitsPath) as f:
+            traitsD = json.load(f)
+        (240,695)
+        #Get character
+        char = {}
+        for a in self.chars:
+            if bool(re.search(character, a["char_name"], re.IGNORECASE)):
+                char = a
+        #Load traits
+        inString = "INSERT INTO racial_traits (char_id, trait) VALUES(?,?)"
+        if char["race"] == "Human":
+            for a in traitsD["human_traits"]:
+                inTxt = a["title"]+":\n"+a["desc"]
+                self.curr.execute(inString, (char["char_id"],inTxt))
+        elif char["race"] == "Elf":
+            for a in traitsD["elf_traits"]:
+                inTxt = a["title"]+":\n"+a["desc"]
+                self.curr.execute(inString, (char["char_id"],inTxt))
+        elif char["race"] == "Dwarf":
+            for a in traitsD["dwarf_traits"]:
+                inTxt = a["title"]+":\n"+a["desc"]
+                self.curr.execute(inString, (char["char_id"],inTxt))
+        self.conn.commit()
+
+
 #Chat module selection
 rp = roleplay()
 
 @module.commands("char_info","cstats","ci")
-@module.example()
+@module.example("eg .ci JUSTIN CASE")
+@module.example("eg .char_info JUSTIN CASE")
+@module.example("eg .cstats JUSTIN CASE")
 def printChar(bot, trigger):
+    """Prints out character info for name provided"""
+    bot.reply(char_info.replace("\n"," | "))
     char_info = rp.printCharInfo(trigger.group(2))
     for a in char_info.splitlines():
         bot.say(a, trigger.nick)
-    bot.reply(char_info.replace("\n"," | "))
