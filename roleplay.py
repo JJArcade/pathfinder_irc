@@ -2,7 +2,7 @@ import sys, os, re, sqlite3, textwrap
 from PIL import Image, ImageDraw, ImageFont
 from pathlib import Path
 from datetime import datetime
-#import sopel.module
+from sopel import module
 
 class roleplay:
     def __init__(self):
@@ -82,13 +82,22 @@ class roleplay:
             return "No character found."
         #format
         outText = ""
-        for a in char:
+        for a in ["char_name","alignment","gender","race","class","xp",\
+            "level","strength","dexterity","constitution","intelligence",\
+            "wisdom","charisma"]:
             if a != "char_id":
                 outText+=a
                 outText+=": "+str(char[a])
                 outText+="\n"
         return outText
 
-#test
-#x = roleplay()
-#x.makeCharacterSheet("Justin Case")
+#Chat module selection
+rp = roleplay()
+
+@module.commands("char_info","cstats","ci")
+@module.example()
+def printChar(bot, trigger):
+    char_info = rp.printCharInfo(trigger.group(2))
+    for a in char_info.splitlines():
+        bot.say(a, trigger.nick)
+    bot.reply(char_info.replace("\n"," | "))
