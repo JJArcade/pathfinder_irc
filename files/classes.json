@@ -1,5 +1,53 @@
 {
   "Cleric": {
+    "class_feats": [
+      ["Fortitude Save", "+2"],
+      ["Hit Points", "8"],
+      ["Reflex Save", "+0"],
+      ["Will Save", "+2"],
+      ["Attack Bonus", "+0"],
+      ["Skill Ranks", "2"]
+      ["Note", "Channel Energy 1d6. 3+ Cha per Day. Heal The Living OR Damage Undead."]
+    ],
+    "Skills": [
+      "Diplomacy",
+      "Heal",
+      "Knowledge Arcana",
+      "Knowledge History",
+      "Knowledge Religion",
+      "Sense Motive",
+      "Spell Craft"
+    ],
+    "Armor Weapon Prof": [
+      "Shields",
+      "Light Armor",
+      "Medium Armor",
+      "Simple Weapons"
+    ]
+  },
+  "Fighter": {
+    "class_feats": [
+      ["Fortitude Save", "+2"],
+      ["Hit Points", "10"],
+      ["Reflex Save", "+0"],
+      ["Attack Bonus", "+1"],
+      ["Will Save", "+0"],
+      ["Skill Ranks", "2"]
+    ],
+    "Skills": [
+      "Climb",
+      "Ride",
+      "Knowledge Dungeoneering",
+      "Swim"
+    ],
+    "Armor Weapon Prof": [
+      "Shields",
+      "Light Armor",
+      "Medium Armor",
+      "Heavy Armor",
+      "Simple Weapons",
+      "Martial Weapons"
+    ],
     ""
   }
 }

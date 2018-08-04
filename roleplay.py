@@ -2,7 +2,7 @@ import sys, os, re, sqlite3, textwrap, json
 from PIL import Image, ImageDraw, ImageFont
 from pathlib import Path
 from datetime import datetime
-from sopel import module
+#from sopel import module
 
 class roleplay:
     def __init__(self):
@@ -121,15 +121,15 @@ class roleplay:
 
 
 #Chat module selection
-rp = roleplay()
+"""rp = roleplay()
 
 @module.commands("char_info","cstats","ci")
 @module.example("eg .ci JUSTIN CASE")
 @module.example("eg .char_info JUSTIN CASE")
 @module.example("eg .cstats JUSTIN CASE")
 def printChar(bot, trigger):
-    """Prints out character info for name provided"""
+    "Prints out character info for name provided"
     bot.reply(char_info.replace("\n"," | "))
     char_info = rp.printCharInfo(trigger.group(2))
     for a in char_info.splitlines():
-        bot.say(a, trigger.nick)
+        bot.say(a, trigger.nick)"""
